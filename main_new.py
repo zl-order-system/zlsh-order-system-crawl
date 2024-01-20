@@ -36,9 +36,17 @@ def textFormat(text):
     year = str(int(arrayText[0][yi-3:yi])+1911)
     mi = arrayText[0].find("月")
     month = ""
+    for i in range(0, len(arrayText)):
+        if "/" in arrayText[i]:
+            startLineNum = i
+            break
+    for i in range(startLineNum, len(arrayText)):
+        if "/" not in arrayText[i]:
+            endLineNum = i-1
+            break
     for i in range(2,0, -1):
         month += arrayText[0][mi - i] if arrayText[0][mi - i].isdigit() else  ""
-    for i in range(8, len(arrayText)-2):
+    for i in range(startLineNum, endLineNum+1):
         formatArray.append(eachLineProcess(arrayText[i], year , month))
     return formatArray
 
@@ -51,7 +59,21 @@ def eachLineProcess(lineText, year , month):
         date += processData[1][i] if  processData[1][i].isdigit() and i < 3 else ""
     returnData["date"] += date
     name = ""
-    for i in range(len(date)+1, len(processData[1])):
+    nameStartLine = 0
+    haveBeenChineseWeek = False
+    for i in range(len(date), len(processData[1])):
+        if isChineseWeekNumber(processData[1][i]) and haveBeenChineseWeek:
+            nameStartLine = i
+            break
+        elif isChineseWeekNumber(processData[1][i]):
+            haveBeenChineseWeek = True
+            continue
+        elif processData[1][i] == " ":
+            continue
+        else:
+            nameStartLine = i
+            break
+    for i in range(nameStartLine, len(processData[1])):
         if processData[1][i] != " ":
             name += processData[1][i]
         else:
@@ -59,9 +81,14 @@ def eachLineProcess(lineText, year , month):
     returnData["name"] += name
     return returnData
 
+def isChineseWeekNumber(text):
+    ChineseNumber = ("日","一","二","三","四","五","六")
+    return True if text in ChineseNumber else False
+
 #---遠端爬取最新pdf---
 pdfContent = getPdfContent(0)
 text = pdfContentToText(pdfContent)
+print(text)
 formatText = textFormat(text)
 print(formatText)
 
