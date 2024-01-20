@@ -88,7 +88,6 @@ def isChineseWeekNumber(text):
 #---遠端爬取最新pdf---
 pdfContent = getPdfContent(0)
 text = pdfContentToText(pdfContent)
-print(text)
 formatText = textFormat(text)
 print(formatText)
 
