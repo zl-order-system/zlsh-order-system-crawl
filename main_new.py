@@ -129,7 +129,7 @@ def searchNumByDate(date, formatData): #利用日期來查找當天所在陣列�
         else: num+=1 
 
 #---遠端爬取最新pdf---
-pdfContent = getPdfContent(1)
+pdfContent = getPdfContent(0)
 text = pdfContentToText(pdfContent)
 formatText = textFormat(text)
 weekDate = checkWeek(formatText)
