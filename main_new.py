@@ -2,6 +2,7 @@ import requests
 import bs4
 import PyPDF2
 import io
+from datetime import datetime, timedelta
 
 def getPdfContent(number): #number 為取得第n新的pdf(0為最新，1為第二新，以此類推)
     schoolWebURL = "https://www.zlsh.tp.edu.tw/category/office/div_300/section_lunch/lunch1_list/"
@@ -85,11 +86,23 @@ def isChineseWeekNumber(text):
     ChineseNumber = ("日","一","二","三","四","五","六")
     return True if text in ChineseNumber else False
 
+def checkWeek(dateArray): #將這個月的日期整理成一週一週的陣列（同週放在同一格陣列）
+    weeks = ("一", "二", "三", "四", "五", "六", "日")
+    allDate = [ datetime.strptime(date['date'],"%Y-%m-%d") for date in dateArray ]
+    returnData = []
+    lastweek = 0
+    for i in allDate:
+        if (i - timedelta(days=lastweek*7)).day <=7:
+            returnData[0].append(i.date().strftime("%Y-%m-%d"))
+        else: lastweek += 1
+    print(returnData)
 #---遠端爬取最新pdf---
-pdfContent = getPdfContent(0)
-text = pdfContentToText(pdfContent)
-formatText = textFormat(text)
-print(formatText)
+# pdfContent = getPdfContent(0)
+# text = pdfContentToText(pdfContent)
+# formatText = textFormat(text)
+# print(formatText)
+
+checkWeek([{'date': '2024-1-2', 'name': '日式燒肉片', 'NotOwnBox': False}, {'date': '2024-1-3', 'name': '肉絲炒飯', 'NotOwnBox': False}, {'date': '2024-1-4', 'name': '香酥雞排', 'NotOwnBox': False}, {'date': '2024-1-5', 'name': '義式芝麻烤腿排', 'NotOwnBox': False}, {'date': '2024-1-8', 'name': '蒜香骰子豬', 'NotOwnBox': False}, {'date': '2024-1-9', 'name': '沙茶雞丁', 'NotOwnBox': False}, {'date': '2024-1-10', 'name': '椒鹽花枝排', 'NotOwnBox': False}, {'date': '2024-1-11', 'name': '清蒸多利魚', 'NotOwnBox': False}, {'date': '2024-1-12', 'name': '咖哩肉片燴飯', 'NotOwnBox': True}, {'date': '2024-1-15', 'name': '蔥爆肉絲', 'NotOwnBox': False}, {'date': '2024-1-16', 'name': '黑胡椒雞柳', 'NotOwnBox': False}, {'date': '2024-1-17', 'name': '紅燒肉', 'NotOwnBox': False}, {'date': '2024-1-18', 'name': '香滷棒腿', 'NotOwnBox': False}, {'date': '2024-1-23', 'name': '蠔油肉片', 'NotOwnBox': False}, {'date': '2024-1-24', 'name': '肉燥乾麵', 'NotOwnBox': True}, {'date': '2024-1-25', 'name': '咔啦雞排', 'NotOwnBox': False}, {'date': '2024-1-26', 'name': '椒鹽魚排', 'NotOwnBox': False}])
 
 #---讀取本地pdf---
 # text = local_PdfFileToText("EX_PDF/112-12月.pdf")
