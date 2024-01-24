@@ -3,6 +3,7 @@ import bs4
 import PyPDF2
 import io
 from datetime import datetime, timedelta
+import json
 
 def getPdfContent(number): #number 為取得第n新的pdf(0為最新，1為第二新，以此類推)
     schoolWebURL = "https://www.zlsh.tp.edu.tw/category/office/div_300/section_lunch/lunch1_list/"
@@ -134,7 +135,8 @@ text = pdfContentToText(pdfContent)
 formatText = textFormat(text)
 weekDate = checkWeek(formatText)
 mealsData = weekDateToAllMealData(weekDate, formatText)
-print(mealsData)
+JsonStr = json.dumps(mealsData, ensure_ascii=False)
+print(JsonStr)
 
 #---讀取本地pdf---
 # text = local_PdfFileToText("EX_PDF/112-12月.pdf")
