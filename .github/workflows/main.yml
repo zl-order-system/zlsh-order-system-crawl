@@ -1,7 +1,7 @@
 name: Meals Crawl
 
 on:
-  push:
+  pull_request:
     branches:
     - main
 
