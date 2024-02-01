@@ -1,6 +1,7 @@
 name: Meals Crawl
 
 on:
+  workflow_dispatch:
   pull_request:
     branches:
     - new
