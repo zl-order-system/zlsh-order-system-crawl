@@ -131,3 +131,17 @@ def searchNumByDate(date, formatData): #利用日期來查找當天所在陣列�
     for i in formatData:
         if i["date"] == date: return num
         else: num+=1 
+
+def getCompleteData(content): #執行一連串並獲取最終資料，參數為第n新之菜單(最新為0)
+    pdfContent = getPdfContent(content)
+    text = pdfContentToText(pdfContent)
+    formatText = textFormat(text)
+    weekDate = checkWeek(formatText)
+    mealsData = weekDateToAllMealData(weekDate, formatText)
+    return json.dumps(mealsData, ensure_ascii=False)
+
+
+#---讀取本地pdf---
+# text = local_PdfFileToText("EX_PDF/112-12月.pdf")
+# formatText = textFormat(text)
+# print(formatText)

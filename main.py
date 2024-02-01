@@ -1,17 +1,15 @@
 from function import *
-import json
+import os
 
 #---遠端爬取最新pdf---
-pdfContent = getPdfContent(0)
-text = pdfContentToText(pdfContent)
-formatText = textFormat(text)
-weekDate = checkWeek(formatText)
-mealsData = weekDateToAllMealData(weekDate, formatText)
-JsonStr = json.dumps(mealsData, ensure_ascii=False)
-print(JsonStr)
+latestData = getCompleteData(0)
+print(latestData)
+
+current_file_path = os.path.abspath(__file__)
+current_directory = os.path.dirname(current_file_path)
+target_folder_path = os.path.join(current_directory, "API", "meals")
+file_path = os.path.join(target_folder_path, "latest.json")
+with open(file_path, 'w') as file:
+    file.write(latestData)
 
 
-#---讀取本地pdf---
-# text = local_PdfFileToText("EX_PDF/112-12月.pdf")
-# formatText = textFormat(text)
-# print(formatText)
