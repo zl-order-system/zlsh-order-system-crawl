@@ -3,3 +3,4 @@ beautifulsoup4
 PyPDF2
 html5lib
 datetime
+json
