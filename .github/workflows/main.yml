@@ -1,0 +1,15 @@
+name: Meals Crawl
+
+on:
+  push:
+    branches:
+    - main
+
+jobs:
+  crawl_data:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+    - name: echo
+      run: echo "ff"
