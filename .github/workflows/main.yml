@@ -3,7 +3,7 @@ name: Meals Crawl
 on:
   pull_request:
     branches:
-    - main
+    - new
 
 jobs:
   crawl_data:
