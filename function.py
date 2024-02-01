@@ -12,7 +12,7 @@ def getPdfContent(number): #number 為取得第n新的pdf(0為最新，1為第�
     pdfContent = requests.get(pdfURL).content
     return pdfContent
 
-def pdfContentToText(pdfContent):
+def pdfContentToText(pdfContent): #爬取校網菜單pdf並輸出文字
     fakeFile = io.BytesIO(bytes(pdfContent))
     pdfReader = PyPDF2.PdfReader(fakeFile)
     text = ""
@@ -22,7 +22,7 @@ def pdfContentToText(pdfContent):
     fakeFile.close()
     return text
     
-def local_PdfFileToText(path):
+def local_PdfFileToText(path): #讀取本地pdf並輸出文字
     with open(path, 'rb') as file:
         pdf_reader = PyPDF2.PdfReader(file)
         text = ""
@@ -31,7 +31,7 @@ def local_PdfFileToText(path):
             text += page.extract_text()
     return text
 
-def textFormat(text):
+def textFormat(text): #將每一天的日期以及餐像整理
     arrayText = text.split("\n")
     formatArray = []
     yi = arrayText[0].find("年")
@@ -54,13 +54,16 @@ def textFormat(text):
         formatArray[i]["date"] = datetime.strptime(formatArray[i]["date"], "%Y-%m-%d").strftime("%Y-%m-%d")
     return formatArray
 
-def eachLineProcess(lineText, year , month):
+def eachLineProcess(lineText, year , month): #在textFormat()中用到，用來處裡菜單每一行文字
     NotOwnBox = True if "無自備" in lineText else False
-    returnData = {"date": f"{year}-{month}-", "name":"", "schoolOnly":NotOwnBox}
     processData = lineText.split("/")
+    inLineMonth = ""
+    for i in processData[0]:
+        inLineMonth += i if i.isdigit() and len(inLineMonth) < 3 else ""
     date = ""
     for i in range(0, len(processData[1])):
         date += processData[1][i] if  processData[1][i].isdigit() and i < 3 else ""
+    returnData = {"date": f"{year}-{inLineMonth}-", "name":"", "schoolOnly":NotOwnBox}
     returnData["date"] += date
     name = ""
     nameStartLine = 0
@@ -85,7 +88,7 @@ def eachLineProcess(lineText, year , month):
     returnData["name"] += name
     return returnData
 
-def isChineseWeekNumber(text):
+def isChineseWeekNumber(text): #檢查是否為中文的星期文字
     ChineseNumber = ("日","一","二","三","四","五","六")
     return True if text in ChineseNumber else False
 
@@ -105,7 +108,7 @@ def checkWeek(dateArray): #將這個月的日期整理成一週一週的陣列�
             everyWeekFirstDate = i - timedelta(days=i.weekday())
     return returnData
 
-def weekDateToAllMealData(weekDate ,formatData):
+def weekDateToAllMealData(weekDate ,formatData): #將textFormat()回傳的陣列處理，並將同一週菜單合併，並以物件導出
     returnData = []
     for i in weekDate:
         mealOptions = []
@@ -128,17 +131,3 @@ def searchNumByDate(date, formatData): #利用日期來查找當天所在陣列�
     for i in formatData:
         if i["date"] == date: return num
         else: num+=1 
-
-#---遠端爬取最新pdf---
-pdfContent = getPdfContent(0)
-text = pdfContentToText(pdfContent)
-formatText = textFormat(text)
-weekDate = checkWeek(formatText)
-mealsData = weekDateToAllMealData(weekDate, formatText)
-JsonStr = json.dumps(mealsData, ensure_ascii=False)
-print(JsonStr)
-
-#---讀取本地pdf---
-# text = local_PdfFileToText("EX_PDF/112-12月.pdf")
-# formatText = textFormat(text)
-# print(formatText)
