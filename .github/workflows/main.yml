@@ -34,8 +34,7 @@ jobs:
         git add API/meals/latest.json
         git commit -a -m "Add changes"
     - name: Push changes
-      run: |
-        git push origin pages
+      run: ad-m/github-push-action@maste
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         branch: pages
