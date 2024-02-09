@@ -35,9 +35,9 @@ jobs:
         git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
         git config --local user.name "github-actions[bot]"
         git checkout -b pages  # Change this line to checkout the 'pages' branch
+        git pull origin pages
         git add API/meals/latest.json
         git commit -a -m "Add changes"
-        git pull
 
     - name: Push changes
       uses: ad-m/github-push-action@master
