@@ -32,6 +32,6 @@ jobs:
         git config --local user.name "github-actions[bot]"
         git checkout -b pages
         git pull origin pages
-        git add .
+        git add API/meals/latest.json
         git commit -m "Update from main branch"
         git push --force origin pages
