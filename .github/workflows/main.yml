@@ -2,12 +2,12 @@ name: Meals Crawl
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '0 0 25 * *'
-
+  pull_request:
+    branches:
+    - new
 
 jobs:
-  push_to_pages:
+  crawl_data:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout code
@@ -25,12 +25,14 @@ jobs:
     - name: Execute Python script
       run: python main.py
 
-    - name: Commit and push to Pages branch
+    - name: Commit files
       run: |
         git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
         git config --local user.name "github-actions[bot]"
-        git checkout -b pages
-        git pull origin pages
         git add .
-        git commit -m "Update from main branch"
-        git push --force origin pages
+        git commit -a -m "Add changes"
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        branch: main
