@@ -4,14 +4,7 @@ on:
   workflow_dispatch:
   schedule:
     - cron: '0 0 25 * *'
-  
 
-name: Push to Pages Branch
-
-on:
-  push:
-    branches:
-      - main
 
 jobs:
   push_to_pages:
