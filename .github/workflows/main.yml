@@ -7,7 +7,7 @@ on:
     - new
 
 env:
-  MEALS_REQUEST_TOKEN : ${{secrets.MEALS_REQUEST_TOKEN}}
+  MEALS_REQUEST_TOKEN : ${{secrets}}
 
 jobs:
   crawl_data:
@@ -26,10 +26,11 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
     - name: Execute Python script
-      run: python main.py
+      run : python main.py
 
     - name: Commit files
       run: |
+        echo ${{secrets.GITHUB_TOKEN}}
         git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
         git config --local user.name "github-actions[bot]"
         git add .
