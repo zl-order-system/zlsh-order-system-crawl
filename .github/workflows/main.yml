@@ -26,7 +26,6 @@ jobs:
     - name: Create or Checkout Pages branch
       run: |
         git fetch origin
-        git checkout -B pages origin/pages
 
     - name: Execute Python script
       run: python main.py
@@ -35,7 +34,7 @@ jobs:
       run: |
         git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
         git config --local user.name "github-actions[bot]"
-        git checkout pages  # Change this line to checkout the 'pages' branch
+        git checkout -b pages  # Change this line to checkout the 'pages' branch
         git add API/meals/latest.json
         git commit -a -m "Add changes"
 
