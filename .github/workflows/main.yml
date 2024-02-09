@@ -23,6 +23,11 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
+    - name: Create or Checkout Pages branch
+      run: |
+        git fetch origin
+        git checkout -B pages origin/pages
+
     - name: Execute Python script
       run: python main.py
 
@@ -33,8 +38,10 @@ jobs:
         git checkout pages  # Change this line to checkout the 'pages' branch
         git add API/meals/latest.json
         git commit -a -m "Add changes"
+
     - name: Push changes
       uses: ad-m/github-push-action@master
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        branch: pages
+        branch: pages  # Change this line to push to the 'pages' branch
+
