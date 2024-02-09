@@ -37,6 +37,7 @@ jobs:
         git checkout -b pages  # Change this line to checkout the 'pages' branch
         git add API/meals/latest.json
         git commit -a -m "Add changes"
+        git pull
 
     - name: Push changes
       uses: ad-m/github-push-action@master
