@@ -6,6 +6,9 @@ on:
     branches:
     - new
 
+env:
+  MEALS_REQUEST_TOKEN : ${{secrets.MEALS_REQUEST_TOKEN}}
+
 jobs:
   crawl_data:
     runs-on: ubuntu-latest
