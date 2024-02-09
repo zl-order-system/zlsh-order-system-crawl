@@ -31,7 +31,7 @@ jobs:
         git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
         git config --local user.name "github-actions[bot]"
         git checkout -b pages
+        git pull origin pages
         git add .
         git commit -m "Update from main branch"
         git push origin pages
-
