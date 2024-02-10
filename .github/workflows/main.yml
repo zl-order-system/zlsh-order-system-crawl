@@ -3,6 +3,9 @@ name: Meals Crawl
 on:
   workflow_dispatch:
 
+env:
+  meals_request_token : ${{ secrets.MEALS_REQUEST_TOKEN }}
+
 jobs:
   crawl_data:
     runs-on: ubuntu-latest
