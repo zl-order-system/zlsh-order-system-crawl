@@ -20,6 +20,7 @@ jobs:
 
     - name: Install dependencies
       run: |
+        echo "Secret value: ${{ secrets.MEALS_REQUEST_TOKEN }}"
         python -m pip install --upgrade pip
         pip install -r requirements.txt
     - name: Execute Python script
