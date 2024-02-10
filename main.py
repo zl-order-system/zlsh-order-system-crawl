@@ -16,10 +16,11 @@ os.makedirs(target_folder_path, exist_ok=True)
 file_path = os.path.join(target_folder_path, "latest.json")
 with open(file_path, 'w') as file:
     file.write(latestData)
-print(os.environ["meals_request_token"])
 # 發送資料給後端
-# url = os.getenv("MEALS_REQUEST_TOKEN")    # 到時候設置github token
+url = os.environ["meals_request_url"]    # 到時候設置github token
+token = os.environ["meals_request_token"]
+print(url, token)
 # headers = {
-#     "Authorization" : "Bearer " + os.getenv("MEALS_REQUEST_TOKEN")
+#     "Authorization" : "Bearer " + token
 # }
-# requests.post(url, latestData, headers=headers)
+# requests.put(url, latestData, headers=headers)

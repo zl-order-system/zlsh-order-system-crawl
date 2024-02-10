@@ -5,6 +5,7 @@ on:
 
 env:
   meals_request_token : ${{ secrets.MEALS_REQUEST_TOKEN }}
+  meals_request_url : ${{ vars.MEALS_REQUEST_URL }}
 
 jobs:
   crawl_data:
