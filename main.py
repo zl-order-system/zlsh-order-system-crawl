@@ -20,7 +20,7 @@ with open(file_path, 'w') as file:
 url = os.environ["meals_request_url"]    # 到時候設置github token
 token = os.environ["meals_request_token"]
 print(url, token)
-# headers = {
-#     "Authorization" : "Bearer " + token
-# }
-# requests.put(url, latestData, headers=headers)
+headers = {
+    "Authorization" : "Bearer " + token
+}
+requests.put(url, latestData, headers=headers)
