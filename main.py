@@ -22,7 +22,9 @@ token = os.environ["meals_request_token"]
 print(url, token)
 headers = {
     "Authorization" : "Bearer " + token,
-    "Content-Type": "application/json"
+    "Content-Type" : "application/json",
+    "Cache-Control" : "no-cache",
+    "Accept" : "*/*"
 }
 req = requests.put(url, data=latestData, headers=headers)
 print(req.status_code)
