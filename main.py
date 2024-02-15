@@ -23,4 +23,5 @@ print(url, token)
 headers = {
     "Authorization" : "Bearer " + token
 }
-requests.put(url, latestData, headers=headers)
+req = requests.put(url, latestData, headers=headers)
+print(req.status_code)
