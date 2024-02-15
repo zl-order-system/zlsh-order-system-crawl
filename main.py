@@ -26,3 +26,4 @@ headers = {
 }
 req = requests.put(url, data=latestData, headers=headers)
 print(req.status_code)
+print(req.text)
