@@ -26,6 +26,6 @@ headers = {
     "Cache-Control" : "no-cache",
     "Accept" : "*/*"
 }
-req = requests.put(url, data=latestData, headers=headers)
+req = requests.put(url, data=latestData.encode("utf-8"), headers=headers)
 print(req.status_code)
 print(req.text)
