@@ -1,12 +1,12 @@
-name: Meals Crawl
+name: Meals Crawl to prod
 
 on:
   workflow_dispatch:
 
 env:
   meals_request_token : ${{ secrets.MEALS_REQUEST_TOKEN }}
-  meals_request_url : ${{ vars.MEALS_REQUEST_URL }}
-
+  meals_request_url : ${{ vars.MEALS_REQUEST_URL_PROD }}
+  
 jobs:
   crawl_data:
     runs-on: ubuntu-latest
