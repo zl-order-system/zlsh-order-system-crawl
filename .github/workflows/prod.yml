@@ -2,7 +2,7 @@ name: Meals Crawl to prod
 
 on:
   schedule:
-    - cron: '55 17 25 * *'
+    - cron: '15 3 25 * *'
   workflow_dispatch:
 
 env:
