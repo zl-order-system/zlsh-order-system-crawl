@@ -4,7 +4,7 @@ import requests
 
 # 打開json
 with open('API/meals/latest.json', 'r') as file:
-    latestData = json.load(file)
+    latestData = file.read()
 
 # 發送資料給後端
 url = os.environ["meals_request_url"]    # 到時候設置github token
