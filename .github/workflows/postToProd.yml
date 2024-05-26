@@ -2,6 +2,8 @@ name: Post meals to prod
 
 on:
   push:
+    branches:
+      - main
     paths:
       - 'API/meals/latest.json'  # 只在 latest.json 文件被提交時觸發
   workflow_dispatch:
